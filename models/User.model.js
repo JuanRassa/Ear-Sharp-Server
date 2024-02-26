@@ -36,7 +36,7 @@ const userSchema = new Schema(
       default: false,
     },
     organization_admin_id: {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId || null,
       default: null,
     },
     is_teacher: {
