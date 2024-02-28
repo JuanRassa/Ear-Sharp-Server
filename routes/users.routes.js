@@ -2,7 +2,10 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const User = require('../models/User.model');
 
-router.get('/users', async (req, res, next) => {
+const { isSuperAdmin, isOrgAdmin, isTeacher, isStudent } = require('../middleware/roles_checker.middlewares');
+const { isAuthenticated } = require('../middleware/jwt.middleware.js');
+
+router.get('/users', isAuthenticated, isSuperAdmin, async (req, res, next) => {
   try {
     const allUsers = await User.find();
 
@@ -13,13 +16,13 @@ router.get('/users', async (req, res, next) => {
   }
 });
 
-router.delete('/users/:id', async (req, res, next) => {
+router.delete('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) => {
   const { id } = req.params;
-
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Id is not valid. It must be of type: ObjectId.' });
     }
+
     const deletedUser = await User.findByIdAndDelete(id);
 
     if (!deletedUser) {

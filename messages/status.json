@@ -1,0 +1,10 @@
+{
+  "messagesFor400s": {
+    "s403": {
+      "isNotSuperAdmin": "Access/action not allowed. Only 'super_admin' role is allowed.",
+      "isNotOrgAdmin": "Access/action not allowed. Only 'org_admin' role is allowed.",
+      "isNotTeacher": "Access/action not allowed. Only the 'teacher' role is allowed.",
+      "isNotStudent": "Access/action not allowed. Only the 'student' role is allowed."
+    }
+  }
+}
