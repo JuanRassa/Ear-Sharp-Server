@@ -16,6 +16,25 @@ router.get('/users', isAuthenticated, isSuperAdmin, async (req, res, next) => {
   }
 });
 
+router.get('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Id is not valid. It must be of type: ObjectId.' });
+    }
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: `User with id ${id} not found.` });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error(`An error occurred retrieving the referred user with id = ${id}`, error);
+    next(error);
+  }
+});
+
 router.delete('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) => {
   const { id } = req.params;
   try {
