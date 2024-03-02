@@ -5,16 +5,13 @@ const User = require('../models/User.model');
 // ℹ️ Handles password encryption
 const bcrypt = require('bcrypt');
 
-// ℹ️ Handles password encryption
-const jwt = require('jsonwebtoken');
-
 // How many rounds should bcrypt run the salt (default - 10 rounds)
 const saltRounds = 10;
 
-const { isSuperAdmin, isOrgAdmin, isTeacher, isStudent } = require('../middleware/roles_checker.middlewares');
+const { isSuperAdmin } = require('../middleware/roles_checker.middlewares');
 const { isAuthenticated } = require('../middleware/jwt.middleware.js');
 
-router.get('/users', isAuthenticated, isSuperAdmin, async (req, res, next) => {
+router.get('/users/all', isAuthenticated, isSuperAdmin, async (req, res, next) => {
   try {
     const allUsers = await User.find();
 

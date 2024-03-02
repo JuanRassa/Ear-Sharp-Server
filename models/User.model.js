@@ -6,15 +6,18 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: [true, 'Name is required.'],
+      trim: true,
     },
     last_name: {
       type: String,
       required: [true, 'Last name is required.'],
+      trim: true,
     },
     username: {
       type: String,
       required: [true, 'Username is required.'],
       unique: true,
+      trim: true,
     },
     email: {
       type: String,
@@ -26,6 +29,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Password is required.'],
+      trim: true,
     },
     is_super_admin: {
       type: Boolean,

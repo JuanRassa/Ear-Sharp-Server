@@ -1,10 +1,27 @@
 {
+  "messagesFor200s": {
+    "s200": {
+      "succesfullyDeleted": "Register deleted succesfully."
+    },
+    "s201": {
+      "registerCreated": "Register created succesfully."
+    }
+  },
   "messagesFor400s": {
+    "s400": {
+      "invalidDataType": "Invalid data type: the incoming data type does not match the expected type."
+    },
     "s403": {
       "isNotSuperAdmin": "Access/action not allowed. Only 'super_admin' role is allowed.",
       "isNotOrgAdmin": "Access/action not allowed. Only 'org_admin' role is allowed.",
       "isNotTeacher": "Access/action not allowed. Only the 'teacher' role is allowed.",
       "isNotStudent": "Access/action not allowed. Only the 'student' role is allowed."
+    },
+    "s404": {
+      "registerNotFound": "No information/register was found."
+    },
+    "s409": {
+      "registerAlreadyExists": "The intended data to be registered already exists."
     }
   }
 }
