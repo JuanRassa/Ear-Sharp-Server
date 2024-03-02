@@ -19,13 +19,13 @@ const classroomSchema = new Schema(
       min: 0,
       default: null,
     },
-    isActive: {
+    is_active: {
       type: Boolean,
       default: false,
     },
-    organizationId: {
+    organization_id: {
       type: Schema.Types.ObjectId,
-      required: [true, 'A classroom must be associated to an organization. Please enter an organizationId.'],
+      required: [true, 'A Classroom must be associated to an Organization. Please enter an organizationId.'],
     },
     members: [{ type: Schema.Types.ObjectId }],
     available_exercises: [{ type: Schema.Types.ObjectId }],
