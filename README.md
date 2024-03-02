@@ -32,10 +32,10 @@
   },
   is_teacher: { type: Boolean, default: false },
   is_student: { type: Boolean, default: false },
-  exercises: [
+  exercise_progress: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Exercise'
+      ref: 'Exercise_Progress'
     }
   ]
 }

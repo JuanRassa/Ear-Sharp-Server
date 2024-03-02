@@ -21,8 +21,11 @@ app.use('/auth', authRoutes);
 const usersRoutes = require('./routes/users.routes');
 app.use('/api', usersRoutes);
 
-const organizationRoutes = require('./routes/organization.routes');
-app.use('/api', organizationRoutes);
+const organizationsRoutes = require('./routes/organizations.routes');
+app.use('/api', organizationsRoutes);
+
+const classroomsRoutes = require('./routes/classrooms.routes');
+app.use('/api', classroomsRoutes);
 
 const indexRoutes = require('./routes/index.routes');
 app.use('/api', indexRoutes);

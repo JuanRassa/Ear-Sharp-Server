@@ -51,7 +51,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    exercises: [{ type: Schema.Types.ObjectId }],
+    exercises_progress: [{ type: Schema.Types.ObjectId }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

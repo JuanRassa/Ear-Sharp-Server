@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const Organization = require('../models/Organization.model');
+const Organization = require('../models/Organization.model.js');
 
 const { isAuthenticated } = require('../middleware/jwt.middleware.js');
-const { isOrgAdmin } = require('../middleware/roles_checker.middlewares');
-const statusMessages = require('../messages/status.json');
+const { isOrgAdmin } = require('../middleware/roles_checker.middlewares.js');
 
+const statusMessages = require('../messages/status.json');
 const {
-  messagesFor200s: { s201: registerCreated, s200: succesfullyDeleted },
+  messagesFor200s: { s200: succesfullyDeleted, s201: registerCreated },
   messagesFor400s: {
     s400: { invalidDataType },
     s404: { registerNotFound },

@@ -1,6 +1,7 @@
 {
   "messagesFor200s": {
     "s200": {
+      "succesfullyUpdated": "Register succesfully updated",
       "succesfullyDeleted": "Register deleted succesfully."
     },
     "s201": {
