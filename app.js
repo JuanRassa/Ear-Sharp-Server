@@ -27,6 +27,9 @@ app.use('/api', organizationsRoutes);
 const classroomsRoutes = require('./routes/classrooms.routes');
 app.use('/api', classroomsRoutes);
 
+const exercise_InfoRoutes = require('./routes/Exercise_Info.routes');
+app.use('/api', exercise_InfoRoutes);
+
 const indexRoutes = require('./routes/index.routes');
 app.use('/api', indexRoutes);
 
