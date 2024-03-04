@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Exercise_Info = require('../models/Exercise_Info.model');
 
 const { isAuthenticated } = require('../middleware/jwt.middleware.js');
+const { isTeacher } = require('../middleware/roles_checker.middlewares');
 
 const statusMessages = require('../messages/status.json');
 
@@ -15,7 +16,7 @@ const {
   },
 } = statusMessages;
 
-router.post('/exercises-info/create', isAuthenticated, async (req, res, next) => {
+router.post('/exercises-info/create', isAuthenticated, isTeacher, async (req, res, next) => {
   const { name, code, category, questions_quantity, approvement_percentage } = req.body;
 
   try {
@@ -42,7 +43,7 @@ router.post('/exercises-info/create', isAuthenticated, async (req, res, next) =>
   }
 });
 
-router.get('/exercises-info/all', isAuthenticated, async (req, res, next) => {
+router.get('/exercises-info/all', isAuthenticated, isTeacher, async (req, res, next) => {
   try {
     const allExercises_Infos = await Exercise_Info.find();
 
@@ -52,7 +53,7 @@ router.get('/exercises-info/all', isAuthenticated, async (req, res, next) => {
     next(error);
   }
 });
-router.get('/exercises-info/:id', isAuthenticated, async (req, res, next) => {
+router.get('/exercises-info/:id', isAuthenticated, isTeacher, async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -70,7 +71,7 @@ router.get('/exercises-info/:id', isAuthenticated, async (req, res, next) => {
     next(error);
   }
 });
-router.get('/exercises-info/:code', isAuthenticated, async (req, res, next) => {
+router.get('/exercises-info/:code', isAuthenticated, isTeacher, async (req, res, next) => {
   const { code } = req.params;
 
   try {
@@ -85,7 +86,7 @@ router.get('/exercises-info/:code', isAuthenticated, async (req, res, next) => {
   }
 });
 
-router.put('/exercises-info/:code', isAuthenticated, async (req, res, next) => {
+router.put('/exercises-info/:code', isAuthenticated, isTeacher, async (req, res, next) => {
   const { code } = req.params;
   const { name, category, questions_quantity, approvement_percentage } = req.body;
   try {

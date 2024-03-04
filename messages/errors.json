@@ -1,0 +1,10 @@
+{
+  "messagesFor400s": {
+    "s401": {
+      "tokenExpiredError": "Please authenticate/login again."
+    },
+    "s403": {},
+    "s404": {},
+    "s409": {}
+  }
+}
