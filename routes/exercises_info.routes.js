@@ -8,7 +8,10 @@ const { isTeacher } = require('../middleware/roles_checker.middlewares');
 const statusMessages = require('../messages/status.json');
 
 const {
-  messagesFor200s: { s200: succesfullyDeleted, succesfullyUpdated, s201: registerCreated },
+  messagesFor200s: {
+    s200: { succesfullyUpdated },
+    s201: registerCreated,
+  },
   messagesFor400s: {
     s400: { invalidDataType },
     s404: { registerNotFound },
@@ -102,7 +105,7 @@ router.put('/exercises-info/:code', isAuthenticated, isTeacher, async (req, res,
       return res.status(404).json({ message: registerNotFound, codeNotFound: code });
     }
 
-    res.status(200).json({ message: succesfullyUpdated, updatedExercise_Info: updatedExercise_Info });
+    res.status(202).json({ message: succesfullyUpdated, updatedExercise_Info });
   } catch (error) {
     console.error(`An error occurred retrieving/updating the referred Exercise_Info code = ${code}`, error);
     next(error);
