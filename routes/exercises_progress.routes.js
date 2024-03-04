@@ -4,7 +4,7 @@ const Exercise_Progress = require('../models/Exercise_Progress.model');
 const Exercise_Info = require('../models/Exercise_Info.model');
 
 const { isAuthenticated } = require('../middleware/jwt.middleware.js');
-
+const { isTeacher } = require('../middleware/roles_checker.middlewares');
 const statusMessages = require('../messages/status.json');
 
 const {
@@ -67,7 +67,7 @@ router.post('/exercises-progress/create', isAuthenticated, async (req, res, next
   }
 });
 
-router.get('/exercises-progress/all', isAuthenticated, async (req, res, next) => {
+router.get('/exercises-progress/all', isAuthenticated, isTeacher, async (req, res, next) => {
   try {
     const allExercises_Infos = await Exercise_Progress.find();
 
