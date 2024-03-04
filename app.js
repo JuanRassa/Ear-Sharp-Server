@@ -30,6 +30,9 @@ app.use('/api', classroomsRoutes);
 const exercises_InfoRoutes = require('./routes/exercises_info.routes');
 app.use('/api', exercises_InfoRoutes);
 
+const exercises_ProgressRoutes = require('./routes/exercises_progress.routes');
+app.use('/api', exercises_ProgressRoutes);
+
 const indexRoutes = require('./routes/index.routes');
 app.use('/api', indexRoutes);
 

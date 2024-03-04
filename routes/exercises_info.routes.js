@@ -13,7 +13,6 @@ const {
     s201: registerCreated,
   },
   messagesFor400s: {
-    s400: { invalidDataType },
     s404: { registerNotFound },
     s409: { registerAlreadyExists },
   },
