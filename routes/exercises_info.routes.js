@@ -22,7 +22,7 @@ router.post('/exercises-info/create', isAuthenticated, isTeacher, async (req, re
   try {
     const exercise_infoExists = await Exercise_Info.findOne({ name });
 
-    if (exercise_infoExists) return res.status(409).json({ message: registerAlreadyExists });
+    if (exercise_infoExists) return res.status(409).json({ message: registerAlreadyExists, detail: "Exercise's code already exists." });
 
     const newExercise_Info = await Exercise_Info.create({ name, code, category, questions_quantity, approvement_percentage });
 
@@ -39,7 +39,7 @@ router.post('/exercises-info/create', isAuthenticated, isTeacher, async (req, re
     });
   } catch (error) {
     console.log('Error while CREATING AN Exercise_Info.', error);
-    next(error);
+    res.status(400).json(error);
   }
 });
 
@@ -53,30 +53,32 @@ router.get('/exercises-info/all', isAuthenticated, isTeacher, async (req, res, n
     next(error);
   }
 });
-router.get('/exercises-info/:id', isAuthenticated, isTeacher, async (req, res, next) => {
-  const { id } = req.params;
 
-  try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: invalidDataType, expectedType: 'ObjectId' });
-    }
+// router.get('/exercises-info/:id', isAuthenticated, isTeacher, async (req, res, next) => {
+//   const { id } = req.params;
 
-    const foundExercise_Info = await Exercise_Info.findById(id);
-    if (!foundExercise_Info) {
-      return res.status(404).json({ message: registerNotFound, idNotFound: id });
-    }
-    return res.status(200).json(foundExercise_Info);
-  } catch (error) {
-    console.error(`An error occurred retrieving the referred Exercise_Info with id = ${id}`, error);
-    next(error);
-  }
-});
+//   try {
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//       return res.status(400).json({ message: invalidDataType, expectedType: 'ObjectId' });
+//     }
+
+//     const foundExercise_Info = await Exercise_Info.findById(id);
+//     if (!foundExercise_Info) {
+//       return res.status(404).json({ message: registerNotFound, idNotFound: id });
+//     }
+//     return res.status(200).json(foundExercise_Info);
+//   } catch (error) {
+//     console.error(`An error occurred retrieving the referred Exercise_Info with id = ${id}`, error);
+//     next(error);
+//   }
+// });
+
 router.get('/exercises-info/:code', isAuthenticated, isTeacher, async (req, res, next) => {
   const { code } = req.params;
 
   try {
-    const foundExercise_Info_byCode = await Exercise_Info.findOne(code);
-    if (!foundExercise_Info_byCode) {
+    const foundExercise_Info_byCode = await Exercise_Info.find({ code });
+    if (!foundExercise_Info_byCode || foundExercise_Info_byCode.length === 0) {
       return res.status(404).json({ message: registerNotFound, codeNotFound: code });
     }
     return res.status(200).json(foundExercise_Info_byCode);
@@ -90,9 +92,9 @@ router.put('/exercises-info/:code', isAuthenticated, isTeacher, async (req, res,
   const { code } = req.params;
   const { name, category, questions_quantity, approvement_percentage } = req.body;
   try {
-    const updatedExercise_Info = await Exercise_Info.findOneAndUpdate(
-      code,
-      { name, code, category, questions_quantity, approvement_percentage },
+    const updatedExercise_Info = await Exercise_Info.updateOne(
+      { code },
+      { name, category, questions_quantity, approvement_percentage },
       { new: true }
     );
 

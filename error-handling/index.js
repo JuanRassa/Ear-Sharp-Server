@@ -17,8 +17,13 @@ module.exports = app => {
     // always logs the error
 
     // only render if the error ocurred before sending the response
-    if (err.inner.name === 'TokenExpiredError') {
-      res.status(402).json({ error: err.inner.name, message: tokenExpiredError });
+    if (err) {
+      console.log('RASSA', err);
+      if (err?.inner?.name === 'TokenExpiredError') {
+        res.status(402).json({ error: err.inner.name, message: tokenExpiredError });
+      }
+
+      res.status(400).json(err);
     }
     if (!res.headersSent) {
       res.status(500).json({
