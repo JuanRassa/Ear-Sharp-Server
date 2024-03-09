@@ -43,7 +43,7 @@ router.get('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) =
 
 router.put('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) => {
   const { id } = req.params;
-  const { name, last_name, username, email, password, is_super_admin, is_org_admin, is_teacher, is_student, exercises } = req.body;
+  const { name, last_name, username, email, password, role, is_super_admin, is_org_admin, is_teacher, is_student, exercises } = req.body;
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Id is not valid. It must be of type: ObjectId.' });
@@ -63,7 +63,7 @@ router.put('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) =
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { name, last_name, username, email, password: hashedPassword, is_super_admin, is_org_admin, is_teacher, is_student, exercises },
+      { name, last_name, username, email, password: hashedPassword, role, is_super_admin, is_org_admin, is_teacher, is_student, exercises },
       { new: true }
     );
 

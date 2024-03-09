@@ -31,6 +31,11 @@ const userSchema = new Schema(
       required: [true, 'Password is required.'],
       trim: true,
     },
+    role: {
+      type: String,
+      enum: ['SuperAdmin', 'OrganizationAdmin', 'Teacher', 'Student', 'Solo'],
+      default: 'Solo',
+    },
     is_super_admin: {
       type: Boolean,
       default: false,
