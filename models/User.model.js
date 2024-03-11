@@ -36,25 +36,9 @@ const userSchema = new Schema(
       enum: ['SuperAdmin', 'OrganizationAdmin', 'Teacher', 'Student', 'Solo'],
       default: 'Solo',
     },
-    is_super_admin: {
-      type: Boolean,
-      default: false,
-    },
-    is_org_admin: {
-      type: Boolean,
-      default: false,
-    },
     organization_admin_id: {
       type: Schema.Types.ObjectId || null,
       default: null,
-    },
-    is_teacher: {
-      type: Boolean,
-      default: false,
-    },
-    is_student: {
-      type: Boolean,
-      default: false,
     },
     exercises_progress: [{ type: Schema.Types.ObjectId }],
   },

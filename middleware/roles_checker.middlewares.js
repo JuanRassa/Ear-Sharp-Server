@@ -7,10 +7,10 @@ const {
 } = statusMessages;
 
 const isSuperAdmin = (req, res, next) => {
-  const { is_super_admin } = req.payload;
+  const { role } = req.payload;
   console.log('FUCK REQ:', req.payload);
   try {
-    if (is_super_admin) {
+    if (role === "SuperAdmin") {
       next();
     } else {
       return res.status(403).json({ message: isNotSuperAdmin });
@@ -21,9 +21,9 @@ const isSuperAdmin = (req, res, next) => {
   }
 };
 const isOrgAdmin = (req, res, next) => {
-  const { is_org_admin } = req.payload;
+  const { role } = req.payload;
   try {
-    if (is_org_admin) {
+    if (role === "OrganizationAdmin") {
       next();
     } else {
       return res.status(403).json({ message: isNotOrgAdmin });
@@ -34,9 +34,9 @@ const isOrgAdmin = (req, res, next) => {
   }
 };
 const isTeacher = (req, res, next) => {
-  const { is_teacher } = req.payload;
+  const { role } = req.payload;
   try {
-    if (is_teacher) {
+    if (role = "Teacher") {
       next();
     } else {
       return res.status(403).json({ message: isNotTeacher });
@@ -47,9 +47,23 @@ const isTeacher = (req, res, next) => {
   }
 };
 const isStudent = (req, res, next) => {
-  const { is_student } = req.payload;
+  const { role } = req.payload;
   try {
-    if (is_student) {
+    if (role === "Student") {
+      next();
+    } else {
+      return res.status(403).json({ message: isNotStudent });
+    }
+  } catch (error) {
+    console.error('An error occurred checking student credentials', error);
+    next(error);
+  }
+};
+
+const isSolo = (req, res, next) => {
+  const { role } = req.payload;
+  try {
+    if (role === "Solo") {
       next();
     } else {
       return res.status(403).json({ message: isNotStudent });
@@ -65,4 +79,5 @@ module.exports = {
   isOrgAdmin,
   isTeacher,
   isStudent,
+  isSolo
 };

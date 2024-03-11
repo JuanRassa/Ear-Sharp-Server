@@ -18,7 +18,7 @@ const saltRounds = 10;
 
 // POST /auth/signup  - Creates a new user in the database
 router.post('/signup', (req, res, next) => {
-  const { name, last_name, username, email, password, role, is_super_admin, is_org_admin, is_teacher, is_student, exercises } = req.body;
+  const { name, last_name, username, email, password, role, organization_admin_id, exercises_progress } = req.body;
 
   // Check if email or password or name are provided as empty strings
   if (email === '' || password === '' || name === '') {
@@ -64,11 +64,8 @@ router.post('/signup', (req, res, next) => {
         email,
         password: hashedPassword,
         role,
-        is_super_admin,
-        is_org_admin,
-        is_teacher,
-        is_student,
-        exercises,
+        organization_admin_id,
+        exercises_progress,
       });
     })
     .then(createdUser => {
@@ -110,10 +107,10 @@ router.post('/login', (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { name, last_name, username, email, role, is_super_admin,  is_org_admin, organization_admin_id, is_teacher, is_student, exercises_progress } = foundUser;
+        const { name, last_name, username, email, role, organization_admin_id, exercises_progress } = foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { name, last_name, username, email, role, is_super_admin, is_org_admin, organization_admin_id, is_teacher, is_student, exercises_progress };
+        const payload = { name, last_name, username, email, role, organization_admin_id, exercises_progress };
 
         // Create a JSON Web Token and sign it
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {

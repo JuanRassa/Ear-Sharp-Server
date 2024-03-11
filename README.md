@@ -23,15 +23,16 @@
   username: String,
   email: String,
   password: String,
-  is_super_admin: { type: Boolean, default: false} ,
-  is_org_admin: { type: Boolean, default: false} ,
+  role: { 
+    type: String, 
+    enum: ['SuperAdmin', 'OrganizationAdmin', 'Teacher', 'Student', 'Solo'],
+    default: 'Solo'
+  }
   organization_admin_id: {
     type: Schema.Types.ObjectId,
     default: null,
     ref: "Organization"
   },
-  is_teacher: { type: Boolean, default: false },
-  is_student: { type: Boolean, default: false },
   exercise_progress: [
     {
       type: Schema.Types.ObjectId,
