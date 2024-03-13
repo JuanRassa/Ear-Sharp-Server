@@ -8,7 +8,7 @@ const {
 
 const isSuperAdmin = (req, res, next) => {
   const { role } = req.payload;
-  console.log('FUCK REQ:', req.payload);
+  console.log('damn REQ:', req.payload);
   try {
     if (role === "SuperAdmin") {
       next();
