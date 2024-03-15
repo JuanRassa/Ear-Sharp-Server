@@ -49,6 +49,19 @@ router.put('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) =
       return res.status(400).json({ message: 'Id is not valid. It must be of type: ObjectId.' });
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(email)) {
+      res.status(400).json({ message: 'Provide a valid email address.' });
+      return;
+    }
+
+    const foundedUser = await User.findOne({ email })
+    console.log("FFF1", email)
+    console.log("FFF2", foundedUser.email)
+    if(foundedUser && email !== foundedUser.email) {
+      return res.status(400).json({ message: 'User already exists.' });
+    }
+
     // This regular expression checks password for special characters and minimum length
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {

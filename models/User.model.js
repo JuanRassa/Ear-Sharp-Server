@@ -37,8 +37,7 @@ const userSchema = new Schema(
       default: 'Solo',
     },
     organization_admin_id: {
-      type: Schema.Types.ObjectId || null,
-      default: null,
+      type: Schema.Types.ObjectId,
     },
     exercises_progress: [{ type: Schema.Types.ObjectId }],
   },
