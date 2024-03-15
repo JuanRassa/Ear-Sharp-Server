@@ -56,8 +56,6 @@ router.put('/users/:id', isAuthenticated, isSuperAdmin, async (req, res, next) =
     }
 
     const foundedUser = await User.findOne({ email })
-    console.log("FFF1", email)
-    console.log("FFF2", foundedUser.email)
     if(foundedUser && email !== foundedUser.email) {
       return res.status(400).json({ message: 'User already exists.' });
     }
