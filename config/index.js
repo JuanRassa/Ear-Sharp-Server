@@ -18,6 +18,8 @@ const FRONTEND_URL = () => {
     return process.env.ORIGIN_MAC
   } else if (process.platform === "win32") {
     return process.env.ORIGIN_WINDOWS
+  } else if (process.platform !== "darwin" && process.platform !== "win32") {
+    return process.env.ORIGIN
   } else {
     return 'http://localhost:3000';
   }
