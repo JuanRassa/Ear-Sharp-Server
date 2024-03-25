@@ -110,4 +110,26 @@ router.get('/progress-own-user', isAuthenticated, async (req, res, next) => {
   }
 });
 
+router.delete('/exercises-progress/:id', isAuthenticated, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Id is not valid. It must be of type: ObjectId.' });
+    }
+
+    const deletedProgress = await Exercise_Progress.findByIdAndDelete(id);
+
+    if (!deletedProgress) {
+      return res.status(404).json({ message: `Exercise_Progress with id ${id} not found. Nothing was deleted.` });
+    }
+
+    // await Task.deleteMany({ project: id });
+
+    res.status(200).json({ message: 'Exercise_Progress deleted successfuly.', deletedProgress: deletedProgress });
+  } catch (error) {
+    console.error(`An error occurred deleting the referred user id = ${id}`, error);
+    next(error);
+  }
+});
+
 module.exports = router;
