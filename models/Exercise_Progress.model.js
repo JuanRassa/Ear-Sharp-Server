@@ -38,9 +38,6 @@ const exerciseProgressSchema = new Schema(
     },
     percentage_result: {
       type: Number,
-      required: [true, 'It must be indicated the percentage score of the exercise.'],
-      min: 0,
-      max: 100,
     },
     is_approved: {
       type: Boolean,

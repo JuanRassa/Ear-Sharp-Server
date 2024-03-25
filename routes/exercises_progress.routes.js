@@ -23,13 +23,13 @@ router.post('/exercises-progress/create', isAuthenticated, async (req, res, next
   const { user_email, exercise_code, organization_name, evaluation_type, correct_answers } = req.body;
 
   try {
-    const foundedProgressesByEmail = await Exercise_Info.findOne({ code: exercise_code });
+    const foundedExerciseInfo = await Exercise_Info.findOne({ code: exercise_code });
 
-    if (!foundedProgressesByEmail || foundedProgressesByEmail.length === 0) {
+    if (!foundedExerciseInfo || foundedExerciseInfo.length === 0) {
       return res.status(404).json({ message: registerNotFound, codeNotFound: exercise_code, detail: 'No exercise with the referred code exists.' });
     }
 
-    const { questions_quantity, approvement_percentage } = foundedProgressesByEmail;
+    const { questions_quantity, approvement_percentage } = foundedExerciseInfo;
 
     const percentage_result = (correct_answers * 100) / questions_quantity;
     const is_approved = percentage_result >= approvement_percentage;
@@ -84,11 +84,11 @@ router.get('/exercises-progress/:userEmail', isAuthenticated, async (req, res, n
   console.log('userEmail', userEmail);
 
   try {
-    const foundedProgressesByEmail = await Exercise_Progress.find({ user_email: userEmail });
-    if (!foundedProgressesByEmail || foundedProgressesByEmail.length === 0) {
+    const foundedExerciseInfo = await Exercise_Progress.find({ user_email: userEmail });
+    if (!foundedExerciseInfo || foundedExerciseInfo.length === 0) {
       return res.status(404).json({ message: registerNotFound, userEmailNotFound: userEmail });
     }
-    return res.status(200).json(foundedProgressesByEmail);
+    return res.status(200).json(foundedExerciseInfo);
   } catch (error) {
     console.error(`An error occurred retrieving the referred Email does not exists = ${userEmail}`, error);
     next(error);
@@ -99,11 +99,11 @@ router.get('/progress-own-user', isAuthenticated, async (req, res, next) => {
   const { email } = req.payload;
 
   try {
-    const foundedProgressesByEmail = await Exercise_Progress.find({ user_email: email });
-    if (!foundedProgressesByEmail || foundedProgressesByEmail.length === 0) {
+    const foundedExerciseInfo = await Exercise_Progress.find({ user_email: email });
+    if (!foundedExerciseInfo || foundedExerciseInfo.length === 0) {
       return res.status(404).json({ message: registerNotFound, userEmailNotFound: email });
     }
-    return res.status(200).json(foundedProgressesByEmail);
+    return res.status(200).json(foundedExerciseInfo);
   } catch (error) {
     console.error(`An error occurred retrieving the referred Email does not exists = ${email}`, error);
     next(error);
