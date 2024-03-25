@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Exercise_Info = require('../models/Exercise_Info.model');
 
 const { isAuthenticated } = require('../middleware/jwt.middleware.js');
-const { isTeacher } = require('../middleware/roles_checker.middlewares');
+const { isTeacher, isSolo } = require('../middleware/roles_checker.middlewares');
 
 const statusMessages = require('../messages/status.json');
 
@@ -45,7 +45,7 @@ router.post('/exercises-info/create', isAuthenticated, isTeacher, async (req, re
   }
 });
 
-router.get('/exercises-info/all', isAuthenticated, isTeacher, async (req, res, next) => {
+router.get('/exercises-info/all', isAuthenticated, isSolo, async (req, res, next) => {
   try {
     const allExercises_Infos = await Exercise_Info.find();
 
@@ -75,7 +75,7 @@ router.get('/exercises-info/all', isAuthenticated, isTeacher, async (req, res, n
 //   }
 // });
 
-router.get('/exercises-info/:code', isAuthenticated, isTeacher, async (req, res, next) => {
+router.get('/exercises-info/:code', isAuthenticated, isSolo, async (req, res, next) => {
   const { code } = req.params;
 
   try {
