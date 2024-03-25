@@ -8,7 +8,6 @@ const {
 
 const isSuperAdmin = (req, res, next) => {
   const { role } = req.payload;
-  console.log('damn REQ:', req.payload);
   try {
     if (role === "SuperAdmin") {
       next();
@@ -36,7 +35,7 @@ const isOrgAdmin = (req, res, next) => {
 const isTeacher = (req, res, next) => {
   const { role } = req.payload;
   try {
-    if (role = "Teacher") {
+    if (role === "Teacher" || role === "SuperAdmin") {
       next();
     } else {
       return res.status(403).json({ message: isNotTeacher });
