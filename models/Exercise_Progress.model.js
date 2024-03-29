@@ -4,11 +4,15 @@ const exerciseProgressSchema = new Schema(
   {
     user_email: {
       type: 'String',
-      required: [true, 'An Exercise_Progress must be associated to a User. Please enter a User Email.'],
+      required: true,
+    },
+    exercise_name: {
+      type: 'String',
+      required: true,
     },
     exercise_code: {
       type: 'String',
-      required: [true, 'An Exercise_Progress must be associated to a Exercise_Info. Please enter a User Email.'],
+      required: true,
     },
     organization_name: {
       type: 'String',
@@ -43,7 +47,7 @@ const exerciseProgressSchema = new Schema(
       type: Boolean,
       required: [true, 'It must be indicated if the course has been approved or not.'],
     },
-    exercise_info: { type: Schema.Types.ObjectId, ref: 'Exercise_Info' },
+    exercise_info: { type: String, ref: 'Exercise_Info' },
   },
   {
     timestamps: true,

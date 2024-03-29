@@ -20,7 +20,7 @@ const {
 } = statusMessages;
 
 router.post('/exercises-progress/create', isAuthenticated, async (req, res, next) => {
-  const { user_email, exercise_code, organization_name, evaluation_type, correct_answers } = req.body;
+  const { user_email, exercise_name, exercise_code, organization_name, evaluation_type, correct_answers } = req.body;
 
   try {
     const foundedExerciseInfo = await Exercise_Info.findOne({ code: exercise_code });
@@ -38,6 +38,7 @@ router.post('/exercises-progress/create', isAuthenticated, async (req, res, next
 
     const newExercise_Progress = await Exercise_Progress.create({
       user_email,
+      exercise_name,
       exercise_code,
       organization_name,
       evaluation_type,
@@ -53,6 +54,7 @@ router.post('/exercises-progress/create', isAuthenticated, async (req, res, next
       Exercise_ProgressData: {
         _id: newExercise_Progress._id,
         user_email: newExercise_Progress.user_email,
+        exercise_name: newExercise_Progress.exercise_name,
         exercise_code: newExercise_Progress.exercise_code,
         organization_name: newExercise_Progress.organization_name,
         evaluation_type: newExercise_Progress.evaluation_type,
